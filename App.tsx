@@ -1,13 +1,9 @@
-import { View } from "react-native";
-
 import Header from "./components/Header/Header";
+import Button from "./components/Button/Button";
+import Input from "./components/Input/Input";
 
 const App = () => {
-  return (
-    <View>
-      <Header color="black" size={1} text="Random text" weight="bold" />
-    </View>
-  );
+  return null;
 };
 
 export default App;
