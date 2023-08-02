@@ -1,9 +1,14 @@
-import Header from "./components/Header/Header";
-import Button from "./components/Button/Button";
-import Input from "./components/Input/Input";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+
+import StackNavigator from "./navigation/StackNavigator";
 
 const App = () => {
-  return null;
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 };
 
 export default App;
