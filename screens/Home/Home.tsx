@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-const Home = () => {
+const Home = (): JSX.Element => {
   return (
     <View>
       <Text>Home</Text>

@@ -4,14 +4,17 @@ import { IButton } from "./Types";
 
 import { ButtonWrapper } from "./Button.style";
 
-const Buttonn = (props: IButton) => {
-  const { text, handlePress, ...rest } = props;
+const Button = (props: IButton) => {
+  const { text, handlePress, color, textTransform, isDisabled, ...rest } =
+    props;
 
   return (
-    <ButtonWrapper onPress={handlePress} {...rest}>
-      <Text>{text}</Text>
+    <ButtonWrapper onPress={handlePress} isDisabled={isDisabled} {...rest}>
+      <Text style={{ color, textTransform: textTransform, fontWeight: "600" }}>
+        {text}
+      </Text>
     </ButtonWrapper>
   );
 };
 
-export default Buttonn;
+export default Button;

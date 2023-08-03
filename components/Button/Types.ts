@@ -4,6 +4,8 @@ export interface IProps {
   bgColor: string;
   borderColor: string;
   borderRadius: number;
+  isDisabled: boolean;
+  textTransform?: string;
 }
 
 export interface IButton extends IProps {

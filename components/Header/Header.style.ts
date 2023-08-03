@@ -8,4 +8,5 @@ export const Heading = styled(Text)<IProps>`
   font-size: ${({ size }) => calculateFontSize(size)};
   color: ${({ color }) => color ?? "white"};
   font-weight: ${({ weight }) => weight ?? "normal"};
+  line-height: 35;
 `;
