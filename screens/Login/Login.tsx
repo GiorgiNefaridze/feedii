@@ -54,6 +54,10 @@ const Login = ({ navigation }: IProps): JSX.Element => {
     }
   };
 
+  const handleResetPwd = () => {
+    navigation?.navigate?.(Routes.ResetPassword);
+  };
+
   return (
     <SafeAreaView
       style={[
@@ -98,7 +102,7 @@ const Login = ({ navigation }: IProps): JSX.Element => {
             rightTextStyle={{ color: "white" }}
             style={styles.checkBox}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleResetPwd}>
             <Header
               color="#1573FE"
               size={3}
