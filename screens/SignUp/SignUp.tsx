@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Toast from "react-native-toast-message";
 
-import { useRegister } from "../../hooks/useRegister";
+import { useAuth } from "../../hooks/useAuth";
 import { isValidInputs } from "../../server/utils/isValidInputs";
 import { darkBgColor, successMessage, errorMessage } from "../../constants";
 import { validInputs } from "../../utils/validInputs";
@@ -18,7 +18,8 @@ import Button from "../../components/Button/Button";
 import styles from "../Login/Login.style";
 
 const screenWidth: number = Dimensions.get("screen").width;
-const gap = 5;
+const gap = 5,
+  endpoint: string = "/api/auth/sign-up";
 
 const SignUp = ({ navigation }: IProps): JSX.Element => {
   const [firstName, setFName] = useState<string>("");
@@ -28,7 +29,7 @@ const SignUp = ({ navigation }: IProps): JSX.Element => {
   const [secret, setSecret] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const { register, err, result, setErr, setResult } = useRegister();
+  const { auth, err, result, setErr, setResult } = useAuth(endpoint);
 
   useEffect(() => {
     const isvalid = validInputs(email, password, firstName, lastName, secret);
@@ -62,7 +63,7 @@ const SignUp = ({ navigation }: IProps): JSX.Element => {
     ]);
 
     if (isValid) {
-      await register({ email, firstName, lastName, secret, password });
+      await auth({ email, firstName, lastName, secret, password });
     }
   };
 
@@ -157,7 +158,7 @@ const SignUp = ({ navigation }: IProps): JSX.Element => {
       <View style={styles.footer}>
         <Header color="white" size={3} text="Have an account?" weight="400" />
         <TouchableOpacity onPress={handleBack}>
-          <Header color="#1573FE" size={3} text="Sign up" weight="400" />
+          <Header color="#1573FE" size={3} text="Sign in" weight="400" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
