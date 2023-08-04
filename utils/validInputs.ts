@@ -2,8 +2,8 @@ interface IValidInputs {
   (
     email: string,
     password: string,
-    fName?: string,
-    lName?: string,
+    firstName?: string,
+    lastName?: string,
     secret?: string
   ): boolean;
 }
@@ -11,11 +11,11 @@ interface IValidInputs {
 export const validInputs: IValidInputs = (
   email,
   password,
-  fName,
-  lName,
+  firstName,
+  lastName,
   secret
 ) => {
-  if (fName?.length && lName?.length && secret?.length) {
+  if (firstName?.length && lastName?.length && secret?.length) {
     if (
       email?.length > 5 &&
       email?.includes("@") &&
