@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={Routes.ResetPassword}
+      initialRouteName={Routes.Home}
       screenOptions={{ header: () => null }}
     >
       <Stack.Screen name={Routes.Login} component={Login} />

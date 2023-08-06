@@ -1,4 +1,4 @@
-CREATE DATABASE dailyfeed;
+CREATE DATABASE pillu;
 
 CREATE TABLE users (
     id bigserial primary key,

@@ -3,4 +3,7 @@ export const Routes = {
   SignUp: "SignUp",
   Home: "Home",
   ResetPassword: "ResetPassword",
+  Feed: "Feed",
+  Profile: "Profile",
+  Search: "Search",
 };
