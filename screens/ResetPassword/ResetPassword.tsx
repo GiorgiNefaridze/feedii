@@ -4,46 +4,66 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Toast from "react-native-toast-message";
 
-import { darkBgColor, errorMessage } from "../../constants";
+import { useAuth } from "../../hooks/useAuth";
+import { darkBgColor, errorMessage, successMessage } from "../../constants";
+import { IProps } from "../Login/Login";
 import { Routes } from "../../navigation/Routes";
+import { isValidInputs } from "../../server/utils/isValidInputs";
+import ResetInputs from "./ResetInputs";
 import Header from "../../components/Header/Header";
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 
 import styles from "../Login/Login.style";
 
 export const paddingInline = 25;
-const screenWidth: number = Dimensions.get("screen").width;
+const screenWidth: number = Dimensions.get("screen").width,
+  endpoint: string = "/api/auth/reset-password";
 
-export interface IProps {
-  navigation: unknown;
-}
 ///Step 1: App conditon when you have to enter mail in order to continue
-///Step 2: You have to remember yout secret key and submit then
+///Step 2: You have to remember your secret key, enter new Password submit then
 
 const ResetPassword = ({ navigation }: IProps): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const [secret, setScret] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [toggle, setToggle] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
-  const handlePress = () => {
-    if (step === 1 && !isDisabled) {
-      setStep(step + 1);
+  const { auth, err, result, setErr, setResult } = useAuth(endpoint);
+
+  useEffect(() => {
+    setStep(1);
+  }, []);
+
+  useEffect(() => {
+    if (result?.length) {
+      Toast.show({ type: "success", text1: successMessage, text2: result });
+      setResult("");
     }
 
-    if (step === 2 && !isDisabled) {
-      ///API Call => Reset pwd
+    if (err?.length) {
+      Toast.show({ type: "error", text1: errorMessage, text2: err });
+      setErr("");
+    }
+  }, [result, err]);
+
+  const handleBack = () => {
+    if (step === 1) {
+      navigation?.navigate(Routes.Login);
+    } else {
+      setStep(step - 1);
     }
   };
 
   useEffect(() => {
-    if (email?.length > 5 && email?.includes("@")) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [email]);
+    (async () => {
+      const isValid: boolean = isValidInputs([email, password, secret]);
+
+      if (step === 2 && isValid) {
+        await auth({ email, secret, password });
+      }
+    })();
+  }, [step, toggle]);
 
   return (
     <SafeAreaView
@@ -66,7 +86,7 @@ const ResetPassword = ({ navigation }: IProps): JSX.Element => {
           },
         ]}
       >
-        <TouchableOpacity onPress={() => navigation?.navigate(Routes.Login)}>
+        <TouchableOpacity onPress={handleBack}>
           <FontAwesomeIcon icon={faArrowLeft} color="white" />
         </TouchableOpacity>
       </View>
@@ -78,42 +98,36 @@ const ResetPassword = ({ navigation }: IProps): JSX.Element => {
           weight="bold"
         />
         {step === 1 && (
-          <Input
-            width={screenWidth - 2 * paddingInline}
-            borderColor="#757575"
-            borderRadius={10}
-            keyboardType="email-address"
-            secure={false}
-            text="Email"
+          <ResetInputs
+            step={step}
+            setStep={setStep}
             value={email}
-            handleChange={setEmail}
+            setValue={setEmail}
+            label="Email"
+            setToggle={setToggle}
           />
         )}
-
         {step === 2 && (
-          <Input
-            width={screenWidth - 2 * paddingInline}
-            borderColor="#757575"
-            borderRadius={10}
-            keyboardType="default"
-            secure={true}
-            text="Secret"
+          <ResetInputs
+            step={step}
+            setStep={setStep}
             value={secret}
-            handleChange={setScret}
-          />
+            setValue={setScret}
+            label="Secret"
+            setToggle={setToggle}
+          >
+            <Input
+              width={screenWidth - 2 * paddingInline}
+              borderColor="#757575"
+              borderRadius={10}
+              keyboardType="default"
+              secure={false}
+              text={"New Password"}
+              value={password}
+              handleChange={setPassword}
+            />
+          </ResetInputs>
         )}
-        <Button
-          bgColor={isDisabled ? "#616161" : "#1573FE"}
-          borderColor="#616161"
-          borderRadius={10}
-          color={isDisabled ? "white" : "black"}
-          text={step === 1 ? "Next" : "Submit"}
-          width={screenWidth - 2 * paddingInline}
-          textTransform="uppercase"
-          padding={11}
-          handlePress={handlePress}
-          isDisabled={isDisabled}
-        />
       </View>
     </SafeAreaView>
   );

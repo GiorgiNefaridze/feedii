@@ -6,6 +6,6 @@ export interface IProps {
   keyboardType: string;
   secure: boolean;
   value: string;
-  handleChange: () => void;
+  handleChange: (e: string) => void;
   bgColor?: string;
 }

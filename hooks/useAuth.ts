@@ -6,7 +6,7 @@ import { axiosInstance } from "../api/baseURL";
 
 interface IData {
   email: string;
-  password: string;
+  password?: string;
   firstName?: string;
   lastName?: string;
   secret?: string;
