@@ -1,4 +1,4 @@
-CREATE DATABASE pillu;
+CREATE DATABASE feedii;
 
 CREATE TABLE users (
     id bigserial primary key,

@@ -46,7 +46,7 @@ const BottomTabNavigator = () => {
       initialRouteName={Routes.Feed}
       screenOptions={{
         header: () => null,
-        tabBarStyle: { backgroundColor: "##4f4f4f" },
+        tabBarStyle: { backgroundColor: "#4f4f4f" },
       }}
     >
       {tabs.map(({ component, icon, id, name }: ITab) => {
