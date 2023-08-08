@@ -1,16 +1,16 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import styled from "styled-components";
 
-import { IWrapper, IHeader } from "./Types";
+import { IWrapper, IHeader, IFooter } from "./Types";
 
 export const PostWarpper = styled(View)<IWrapper>`
   width: ${({ width }) => width};
-  height: 450;
+  height: 470;
   align-items: center;
   background-color: white;
   row-gap: 12;
-  padding-top: 15;
-  padding-bottom: 15;
+  padding-top: 10;
+  padding-bottom: 5;
   margin-top: 50;
 `;
 
@@ -26,4 +26,29 @@ export const User = styled(View)`
   flex-direction: row;
   align-items: center;
   column-gap: 10;
+`;
+
+export const Footer = styled(View)<IFooter>`
+  width: ${({ width }) => width};
+  padding-inline: ${({ paddingHorizontal }) => paddingHorizontal};
+  row-gap: 5;
+`;
+
+export const FooterStats = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Stats = styled(TouchableOpacity)`
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5;
+`;
+
+export const FooterComment = styled(View)<{ width: number }>`
+  width: ${({ width }) => width};
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;

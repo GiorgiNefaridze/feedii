@@ -7,24 +7,24 @@ import Button from "../Button/Button";
 import { Header, User } from "./Post.style";
 
 interface IProps {
-  userImage: string;
+  postOwnerImage: string;
   fullName: string;
   date: Date;
-  paddingHorizontal: number;
 }
+
+const paddingHorizontal: number = 20;
 
 const PostHeader = ({
   date,
   fullName,
-  userImage,
-  paddingHorizontal,
+  postOwnerImage,
 }: IProps): JSX.Element => {
   return (
     <Header paddingHorizontal={paddingHorizontal}>
       <User>
         <Image
-          source={{ uri: userImage }}
-          style={{ width: 45, height: 45, borderRadius: 50 }}
+          source={{ uri: postOwnerImage }}
+          style={{ width: 40, height: 40, borderRadius: 50 }}
         />
         <View>
           <Text
@@ -32,7 +32,7 @@ const PostHeader = ({
             size={2}
             text={fullName}
             weight="600"
-            lineHeight={30}
+            lineHeight={20}
           />
           <Text
             color="#768797"
@@ -48,9 +48,9 @@ const PostHeader = ({
         color="white"
         bgColor={tabBarIconActiveColor}
         borderColor={tabBarIconActiveColor}
-        borderRadius={8}
+        borderRadius={10}
         handlePress={() => {}}
-        padding={10}
+        padding={8}
         width={70}
         textTransform="uppercase"
         isDisabled={false}

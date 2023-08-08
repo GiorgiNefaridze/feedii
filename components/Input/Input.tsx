@@ -13,6 +13,7 @@ const Input = (props: IProps) => {
     bgColor,
     value,
     handleChange,
+    placeholderTextColor,
   } = props;
 
   const styles = StyleSheet.create({
@@ -31,7 +32,7 @@ const Input = (props: IProps) => {
   return (
     <TextInput
       placeholder={text}
-      placeholderTextColor={borderColor}
+      placeholderTextColor={placeholderTextColor ?? "white"}
       secureTextEntry={secure}
       keyboardType={keyboardType}
       cursorColor={borderColor}

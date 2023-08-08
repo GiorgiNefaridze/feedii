@@ -8,4 +8,5 @@ export interface IProps {
   value: string;
   handleChange: (e: string) => void;
   bgColor?: string;
+  placeholderTextColor?: string;
 }
