@@ -28,14 +28,14 @@ const PostHeader = ({
         />
         <View>
           <Text
-            color="#0f1419"
+            color="white"
             size={2}
             text={fullName}
             weight="600"
             lineHeight={20}
           />
           <Text
-            color="#768797"
+            color="#beccd9"
             size={3}
             text={date.toISOString().slice(0, 10).toString()}
             weight="400"

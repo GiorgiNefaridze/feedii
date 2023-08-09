@@ -37,20 +37,20 @@ const PostFooter = ({
           }}
         >
           <Stats>
-            <FontAwesomeIcon icon={faHeart} />
-            <Text>{likes}</Text>
+            <FontAwesomeIcon icon={faHeart} color="white" />
+            <Text style={{ color: "white" }}>{likes}</Text>
           </Stats>
           <Stats>
-            <FontAwesomeIcon icon={faComment} />
-            <Text>{comments}</Text>
+            <FontAwesomeIcon icon={faComment} color="white" />
+            <Text style={{ color: "white" }}>{comments}</Text>
           </Stats>
         </View>
         <TouchableOpacity>
-          <FontAwesomeIcon icon={faBookmark} />
+          <FontAwesomeIcon icon={faBookmark} color="white" />
         </TouchableOpacity>
       </FooterStats>
       <Header
-        color="black"
+        color="white"
         size={4}
         text={postDescription}
         weight="400"

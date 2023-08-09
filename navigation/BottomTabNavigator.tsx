@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSquareRss } from "@fortawesome/free-solid-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { Routes } from "./Routes";
 import { tabBarIconActiveColor } from "../constants";
 import Feed from "../screens/Feed/Feed";
-import Search from "../screens/Search/Search";
+import CreatePost from "../screens/CreatePost/CreatePost";
 import Profile from "../screens/Profile/Profile";
 
 const Tab = createBottomTabNavigator();
@@ -28,9 +28,9 @@ const tabs: ITab[] = [
   },
   {
     id: 2,
-    name: Routes.Search,
-    component: Search,
-    icon: faMagnifyingGlass,
+    name: Routes.CreatePost,
+    component: CreatePost,
+    icon: faPlusCircle,
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ const tabs: ITab[] = [
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={Routes.Feed}
+      initialRouteName={Routes.CreatePost}
       screenOptions={{
         header: () => null,
         tabBarStyle: { backgroundColor: "#4f4f4f" },

@@ -14,6 +14,7 @@ const Input = (props: IProps) => {
     value,
     handleChange,
     placeholderTextColor,
+    inpPadding,
   } = props;
 
   const styles = StyleSheet.create({
@@ -24,7 +25,7 @@ const Input = (props: IProps) => {
       borderWidth: 1,
       backgroundColor: bgColor ?? "tranparent",
       paddingVertical: 10,
-      paddingLeft: 15,
+      paddingLeft: inpPadding ?? 15,
       color: "white",
     },
   });

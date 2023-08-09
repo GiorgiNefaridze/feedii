@@ -4,6 +4,6 @@ export const Routes = {
   Home: "Home",
   ResetPassword: "ResetPassword",
   Feed: "Feed",
+  CreatePost: "Create",
   Profile: "Profile",
-  Search: "Search",
 };

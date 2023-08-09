@@ -1,17 +1,20 @@
 import { TouchableOpacity, View } from "react-native";
 import styled from "styled-components";
 
+import { feedBlockBgColor } from "../../constants";
+
 import { IWrapper, IHeader, IFooter } from "./Types";
 
 export const PostWarpper = styled(View)<IWrapper>`
   width: ${({ width }) => width};
+  margin-top: 10;
+  margin-bottom: 10;
   height: 470;
   align-items: center;
-  background-color: white;
+  background-color: ${feedBlockBgColor};
   row-gap: 12;
   padding-top: 10;
   padding-bottom: 5;
-  margin-top: 50;
 `;
 
 export const Header = styled(View)<IHeader>`
