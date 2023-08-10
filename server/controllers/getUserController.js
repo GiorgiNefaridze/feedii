@@ -10,7 +10,12 @@ export const getUserController = async (req, res) => {
 
     if (isValid) {
       const userId = verifyJwt(token);
-      
+
+      const userData = await pool.query("select * from users where id = $1", [
+        Number(userId),
+      ]);
+
+      res.status(200).json({ response: userData.rows?.[0] });
     } else {
       res.status(500).json({ response: "Something went wrong" });
     }
