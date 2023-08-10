@@ -9,11 +9,11 @@ import { PostWarpper } from "./Post.style";
 const screenWidth: number = Dimensions.get("screen").width;
 
 const Post = ({
+  id,
   commment,
   cover,
   date,
   firstname,
-  id,
   lastname,
   likes,
   postDescription,

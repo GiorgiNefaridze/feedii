@@ -13,6 +13,6 @@ router.post("/sign-up", signUpController);
 
 router.post("/reset-password", resetPasswordController);
 
-router.get("/get-user/:token", getUserController);
+router.get("/get-user", getUserController);
 
 export default router;

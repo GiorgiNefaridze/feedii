@@ -18,11 +18,13 @@ export const ImageUploader = styled(TouchableOpacity)<{
 }>`
   width: ${({ width, paddingHorizontal }) => width - 2 * paddingHorizontal};
   height: 200;
-  background-color: grey;
+  border-width: 2px;
+  border-color: grey;
   border-top-right-radius: 10;
   border-top-left-radius: 10;
   border-bottom-left-radius: 10;
   border-bottom-right-radius: 10;
   justify-content: center;
   align-items: center;
+  row-gap: 20;
 `;

@@ -6,8 +6,8 @@ import {
   faArrowUpFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { tabBarIconActiveColor } from "../../constants";
 import { useImagePicker } from "../../hooks/useImagePicker";
+import { tabBarIconActiveColor } from "../../constants";
 import Input from "../../components/Input/Input";
 import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button";
@@ -25,7 +25,7 @@ interface IProps {
 const CreatePost = ({ navigation }: IProps): JSX.Element => {
   const [value, setValue] = useState<string>("");
 
-  const { image, imagePicker, loading } = useImagePicker();
+  const { image, imagePicker } = useImagePicker();
 
   const handleImagePicker = async () => {
     await imagePicker();
@@ -33,9 +33,6 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
 
   return (
     <Container paddingHorizontal={paddingHorizontal}>
-      {image.length && (
-        <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
-      )}
       <View
         style={[
           styles.header,
@@ -63,13 +60,6 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
           isDisabled={false}
         />
       </View>
-      <ImageUploader
-        width={screenWidth}
-        paddingHorizontal={paddingHorizontal}
-        onPress={handleImagePicker}
-      >
-        <FontAwesomeIcon icon={faArrowUpFromBracket} color="white" size={30} />
-      </ImageUploader>
       <View style={{ rowGap: 10 }}>
         <Header
           color="grey"
@@ -80,16 +70,50 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
         <Input
           borderColor="transparent"
           borderRadius={0}
+          value={value}
           handleChange={setValue}
           keyboardType="default"
           secure={false}
           text="Enter a post description..."
-          value={value}
           placeholderTextColor="grey"
           width={screenWidth - 2 * paddingHorizontal}
           inpPadding={0}
         />
       </View>
+      {image?.length < 1 && (
+        <ImageUploader
+          width={screenWidth}
+          paddingHorizontal={paddingHorizontal}
+          onPress={handleImagePicker}
+        >
+          <FontAwesomeIcon
+            icon={faArrowUpFromBracket}
+            color={"white"}
+            size={30}
+          />
+          <Button
+            text="Browse"
+            color="white"
+            bgColor={tabBarIconActiveColor}
+            borderColor={tabBarIconActiveColor}
+            borderRadius={10}
+            handlePress={handleImagePicker}
+            padding={8}
+            width={90}
+            textTransform="uppercase"
+            isDisabled={false}
+          />
+        </ImageUploader>
+      )}
+      {image?.length > 0 && (
+        <Image
+          source={{ uri: image }}
+          style={{
+            width: screenWidth - 2 * paddingHorizontal,
+            height: 200,
+          }}
+        />
+      )}
     </Container>
   );
 };

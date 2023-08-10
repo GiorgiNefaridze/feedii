@@ -4,16 +4,19 @@ import { verifyJwt } from "../utils/verifyJwt.js";
 
 export const getUserController = async (req, res) => {
   try {
-    const { token } = req.params;
+    const token = req.headers["authorization"];
 
-    const isValid = isValidInputs([token]);
+    const plainToken = token.split(" ")[1];
+
+    const isValid = isValidInputs([plainToken]);
 
     if (isValid) {
-      const userId = verifyJwt(token);
+      const userId = verifyJwt(plainToken);
 
-      const userData = await pool.query("select * from users where id = $1", [
-        Number(userId),
-      ]);
+      const userData = await pool.query(
+        "select id,firstname,lastname from users where id = $1",
+        [Number(userId)]
+      );
 
       res.status(200).json({ response: userData.rows?.[0] });
     } else {

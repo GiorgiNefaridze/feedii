@@ -18,7 +18,7 @@ export const useAuth = (endpoint: string) => {
 
   const auth = async (data: IData) => {
     try {
-      const { data: res } = await axiosInstance().post(endpoint, data);
+      const { data: res } = await (await axiosInstance()).post(endpoint, data);
       const response = res?.response;
 
       await AsyncStorage.setItem("token", response);
