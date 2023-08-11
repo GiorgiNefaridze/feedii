@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Dimensions, TouchableOpacity, Image } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faArrowLeft,
   faArrowUpFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import Toast from "react-native-toast-message";
+import { useIsFocused } from "@react-navigation/native";
 
+import { AuthContext } from "../../context/authContext";
+import { useCreate } from "../../hooks/useCreate";
+import { isValidInputs } from "../../server/utils/isValidInputs";
 import { useImagePicker } from "../../hooks/useImagePicker";
-import { tabBarIconActiveColor } from "../../constants";
+import {
+  successMessage,
+  tabBarIconActiveColor,
+  errorMessage,
+} from "../../constants";
 import Input from "../../components/Input/Input";
 import Header from "../../components/Header/Header";
 import Button from "../../components/Button/Button";
@@ -25,14 +34,51 @@ interface IProps {
 const CreatePost = ({ navigation }: IProps): JSX.Element => {
   const [value, setValue] = useState<string>("");
 
-  const { image, imagePicker } = useImagePicker();
+  const { image, imagePicker, setImage } = useImagePicker();
+  const { userData } = AuthContext();
+
+  const isFocused = useIsFocused();
 
   const handleImagePicker = async () => {
     await imagePicker();
   };
 
+  const { createPost, error, result, setError, setResult } = useCreate();
+
+  const handlePost = async () => {
+    const isValid = isValidInputs([image, value]);
+
+    if (isValid && Object.keys(userData)?.length) {
+      const post = {
+        owner_id: userData?.id,
+        content: value,
+        cover: image,
+        date: new Date().toISOString(),
+      };
+
+      await createPost(post);
+    }
+  };
+
+  useEffect(() => {
+    setValue("");
+    setImage("");
+  }, [isFocused]);
+
+  useEffect(() => {
+    if (result?.length) {
+      Toast.show({ type: "success", text1: successMessage, text2: result });
+      setResult("");
+    }
+    if (error?.length) {
+      Toast.show({ type: "error", text1: errorMessage, text2: error });
+      setError("");
+    }
+  }, [result, error]);
+
   return (
     <Container paddingHorizontal={paddingHorizontal}>
+      <Toast />
       <View
         style={[
           styles.header,
@@ -53,7 +99,7 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
           bgColor={tabBarIconActiveColor}
           borderColor={tabBarIconActiveColor}
           borderRadius={10}
-          handlePress={() => {}}
+          handlePress={handlePost}
           padding={8}
           width={70}
           textTransform="uppercase"

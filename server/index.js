@@ -3,6 +3,7 @@ import cors from "cors";
 import { config } from "dotenv";
 
 import AuthRoute from "./routes/authRoute.js";
+import PostRoute from "./routes/postRoute.js";
 
 config();
 
@@ -13,5 +14,6 @@ app.use(cors());
 app.use(json());
 
 app.use("/api/auth", AuthRoute);
+app.use("/api/post", PostRoute);
 
 app.listen(port, () => console.log(`Server is running on ${port} port `));

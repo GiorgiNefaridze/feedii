@@ -2,7 +2,7 @@ import { useState } from "react";
 import { launchImageLibraryAsync, MediaTypeOptions } from "expo-image-picker";
 
 export const useImagePicker = () => {
-  const [image, setIMage] = useState<string>("");
+  const [image, setImage] = useState<string>("");
 
   const imagePicker = async () => {
     try {
@@ -14,11 +14,11 @@ export const useImagePicker = () => {
 
       const result = await launchImageLibraryAsync(options);
 
-      setIMage(result?.assets[0]?.uri);
+      setImage(result?.assets[0]?.uri);
     } catch (error) {
-      setIMage("");
+      setImage("");
     }
   };
 
-  return { imagePicker, image };
+  return { imagePicker, image, setImage };
 };
