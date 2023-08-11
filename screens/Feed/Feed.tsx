@@ -1,4 +1,4 @@
-import { ScrollView, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 
 import { IPost } from "../../components/Post/Types";
 import Post from "../../components/Post/Post";
@@ -91,17 +91,15 @@ const Feed = (): JSX.Element => {
   ];
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
+    <View style={styles.container}>
       <FeedHeader />
       <FlatList
         data={postArray}
         renderItem={({ item }) => <Post {...item} />}
         keyExtractor={(post) => post.id.toString()}
+        showsVerticalScrollIndicator={false}
       />
-    </ScrollView>
+    </View>
   );
 };
 

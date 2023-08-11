@@ -68,6 +68,8 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
   useEffect(() => {
     if (result?.length) {
       Toast.show({ type: "success", text1: successMessage, text2: result });
+      setValue("");
+      setImage("");
       setResult("");
     }
     if (error?.length) {

@@ -2,13 +2,13 @@ export interface IPost {
   id: number;
   firstname: string;
   lastname: string;
-  date: Date;
   postOwnerImage: string;
   cover: string;
-  likes: number;
-  commment: number;
+  date: string;
   postDescription: string;
   userImage: string;
+  likes: number;
+  commment: number;
 }
 
 export interface IWrapper {
