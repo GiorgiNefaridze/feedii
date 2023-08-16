@@ -1,4 +1,5 @@
 import express, { json } from "express";
+import bodyParser from "body-parser";
 import cors from "cors";
 import { config } from "dotenv";
 
@@ -10,6 +11,7 @@ config();
 const app = express();
 const port = process.env.PORT ?? 3003;
 
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 app.use(json());
 

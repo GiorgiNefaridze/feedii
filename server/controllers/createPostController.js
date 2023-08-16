@@ -1,5 +1,10 @@
+import { v2 as cloudinary } from "cloudinary";
+
+import { cloudinaryConnection } from "../utils/cloudinary.js";
 import { pool } from "../database/databaseConnection.js";
 import { isValidInputs } from "../utils/isValidInputs.js";
+
+cloudinaryConnection();
 
 export const createPostController = async (req, res) => {
   try {
@@ -8,9 +13,15 @@ export const createPostController = async (req, res) => {
     const isValid = isValidInputs([content, cover, date]);
 
     if (isValid) {
+      const imageCover = (
+        await cloudinary.uploader.upload("data:image/png;base64," + cover, {
+          public_id: "post_cover" + owner_id,
+        })
+      )?.url;
+
       const createPost = await pool.query(
         "insert into posts (content,cover,date,owner_id) values ($1,$2,$3,$4) returning *",
-        [content, "image url from cloud", date, owner_id]
+        [content, imageCover ?? "", date, owner_id]
       );
 
       if (Object.keys(createPost)?.length) {
