@@ -1,31 +1,37 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 
 import { tabBarIconActiveColor } from "../../constants";
+import { IPostHeader } from "./Types";
 import Text from "../Header/Header";
 import Button from "../Button/Button";
 
 import { Header, User } from "./Post.style";
 
-interface IProps {
-  postOwnerImage: string;
-  fullName: string;
-  date: Date;
-}
-
 const paddingHorizontal: number = 20;
 
-const PostHeader = ({
-  date,
-  fullName,
-  postOwnerImage,
-}: IProps): JSX.Element => {
+const PostHeader = ({ date, fullName }: IPostHeader): JSX.Element => {
+  const releaseDate = date.slice(0, 10);
+
   return (
     <Header paddingHorizontal={paddingHorizontal}>
       <User>
-        <Image
-          source={{ uri: postOwnerImage }}
-          style={{ width: 40, height: 40, borderRadius: 50 }}
-        />
+        <View
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 50,
+            backgroundColor: "red",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            color="white"
+            size={2}
+            text={fullName?.slice(0, 1)}
+            weight="400"
+          />
+        </View>
         <View>
           <Text
             color="white"
@@ -36,8 +42,8 @@ const PostHeader = ({
           />
           <Text
             color="#beccd9"
-            size={3}
-            text={date.toISOString().slice(0, 10).toString()}
+            size={4}
+            text={releaseDate}
             weight="400"
             lineHeight={20}
           />

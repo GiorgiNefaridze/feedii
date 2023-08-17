@@ -46,13 +46,13 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
   const { createPost, error, result, setError, setResult } = useCreate();
 
   const handlePost = async () => {
-    const isValid = isValidInputs([image, value]);
+    const isValid = isValidInputs([value]);
 
     if (isValid && Object.keys(userData)?.length) {
       const post = {
         owner_id: userData?.id,
         content: value,
-        cover: image,
+        cover: image.base64,
         date: new Date().toISOString(),
       };
 
@@ -69,7 +69,7 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
     if (result?.length) {
       Toast.show({ type: "success", text1: successMessage, text2: result });
       setValue("");
-      setImage("");
+      setImage({ base64: "", uri: "" });
       setResult("");
     }
     if (error?.length) {
@@ -128,7 +128,7 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
           inpPadding={0}
         />
       </View>
-      {image?.length < 1 && (
+      {!image?.uri && (
         <ImageUploader
           width={screenWidth}
           paddingHorizontal={paddingHorizontal}
@@ -153,9 +153,9 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
           />
         </ImageUploader>
       )}
-      {image?.length > 0 && (
+      {image?.uri && (
         <Image
-          source={{ uri: image }}
+          source={{ uri: image?.uri }}
           style={{
             width: screenWidth - 2 * paddingHorizontal,
             height: 200,

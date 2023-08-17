@@ -9,11 +9,10 @@ export const PostWarpper = styled(View)<IWrapper>`
   width: ${({ width }) => width};
   margin-top: 10;
   margin-bottom: 10;
-  height: 470;
   align-items: center;
   background-color: ${feedBlockBgColor};
   row-gap: 12;
-  padding-top: 10;
+  padding-top: 20;
   padding-bottom: 5;
 `;
 

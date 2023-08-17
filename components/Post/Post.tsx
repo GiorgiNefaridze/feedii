@@ -9,34 +9,33 @@ import { PostWarpper } from "./Post.style";
 const screenWidth: number = Dimensions.get("screen").width;
 
 const Post = ({
-  id,
-  commment,
-  cover,
-  date,
+  owner_id,
+  post_id,
   firstname,
   lastname,
+  cover,
+  date,
+  content,
+  comment,
   likes,
-  postDescription,
-  postOwnerImage,
-  userImage,
 }: IPost): JSX.Element => {
   return (
     <PostWarpper width={screenWidth}>
-      <PostHeader
-        date={date}
-        fullName={firstname + " " + lastname}
-        postOwnerImage={postOwnerImage}
-      />
-      <Image
-        source={{ uri: cover }}
-        style={{ flex: 1, width: screenWidth, height: 350 }}
-        resizeMode="stretch"
-      />
+      <PostHeader date={date} fullName={firstname + " " + lastname} />
+      {cover?.length >= 1 && (
+        <Image
+          source={{ uri: cover }}
+          style={{ flex: 1, width: screenWidth, height: 350 }}
+          resizeMode="stretch"
+        />
+      )}
       <PostFooter
-        comments={commment}
+        fullName={firstname + " " + lastname}
+        comments={comment}
         likes={likes}
-        postDescription={postDescription}
-        userImg={userImage}
+        content={content}
+        post_id={post_id}
+        cover={cover}
       />
     </PostWarpper>
   );

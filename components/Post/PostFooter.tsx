@@ -1,9 +1,17 @@
-import { View, Text, Dimensions, TouchableOpacity, Image } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
+import { useIsLikedCkecker } from "../../hooks/useIsLikedCkecker";
+import { useRemoveLike } from "../../hooks/useRemoveLike";
+import { usePostLike } from "../../hooks/usePostLike";
+import { IPostFooter } from "./Types";
+import { AuthContext } from "../../context/authContext";
+import Heading from "../Header/Header";
 import Header from "../Header/Header";
 import Input from "../Input/Input";
 
@@ -13,21 +21,58 @@ const screenWidth: number = Dimensions.get("screen").width,
   paddingHorizontal: number = 10,
   gapBtwInpAndAvatar: number = 0;
 
-interface IProps {
-  likes: number;
-  comments: number;
-  postDescription: string;
-  userImg: string;
-}
-
 const PostFooter = ({
+  fullName,
   comments,
   likes,
-  postDescription,
-  userImg,
-}: IProps): JSX.Element => {
+  content,
+  post_id,
+  cover,
+}: IPostFooter): JSX.Element => {
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likesCount, setLikesCount] = useState<number>(likes);
+
+  const { userData } = AuthContext();
+  const { likedChecker } = useIsLikedCkecker();
+  const { postLike } = usePostLike();
+  const { removeLike } = useRemoveLike();
+
+  const ckeckPostOnLike = async () => {
+    const liked = await likedChecker({ post_id, user_id: userData?.id });
+
+    setIsLiked(liked);
+  };
+
+  const likePost = async () => {
+    if (isLiked) {
+      removeLike({ post_id, user_id: userData?.id });
+      setLikesCount((prev) => Number(prev) - 1);
+      return;
+    }
+
+    postLike({ post_id, user_id: userData?.id });
+    setLikesCount((prev) => Number(prev) + 1);
+  };
+
+  useEffect(() => {
+    //Use setTimeout, cuz while requesting checker req is sending more fast and
+    //it make the logic messy(I hope call stack will do his job <3)
+    setTimeout(() => {
+      ckeckPostOnLike();
+    }, 100);
+  }, [likesCount, userData?.id]);
+
   return (
     <Footer paddingHorizontal={0} width={screenWidth - 2 * paddingHorizontal}>
+      {cover?.length < 1 && (
+        <Header
+          color="white"
+          size={4}
+          text={content}
+          weight="400"
+          lineHeight={25}
+        />
+      )}
       <FooterStats>
         <View
           style={{
@@ -36,9 +81,12 @@ const PostFooter = ({
             columnGap: 12,
           }}
         >
-          <Stats>
-            <FontAwesomeIcon icon={faHeart} color="white" />
-            <Text style={{ color: "white" }}>{likes}</Text>
+          <Stats onPress={likePost}>
+            <FontAwesomeIcon
+              icon={isLiked ? solidHeart : faHeart}
+              color="white"
+            />
+            <Text style={{ color: "white" }}>{likesCount}</Text>
           </Stats>
           <Stats>
             <FontAwesomeIcon icon={faComment} color="white" />
@@ -49,18 +97,33 @@ const PostFooter = ({
           <FontAwesomeIcon icon={faBookmark} color="white" />
         </TouchableOpacity>
       </FooterStats>
-      <Header
-        color="white"
-        size={4}
-        text={postDescription}
-        weight="400"
-        lineHeight={18}
-      />
-      <FooterComment width={screenWidth - 2 * paddingHorizontal}>
-        <Image
-          source={{ uri: userImg }}
-          style={{ width: 30, height: 30, borderRadius: 50 }}
+      {cover?.length >= 1 && (
+        <Header
+          color="white"
+          size={4}
+          text={content}
+          weight="400"
+          lineHeight={18}
         />
+      )}
+      <FooterComment width={screenWidth - 2 * paddingHorizontal}>
+        <View
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 50,
+            backgroundColor: "red",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Heading
+            color="white"
+            size={2}
+            text={fullName?.slice(0, 1)}
+            weight="400"
+          />
+        </View>
         <Input
           width={screenWidth - 2 * paddingHorizontal - 30 - gapBtwInpAndAvatar}
           borderRadius={0}

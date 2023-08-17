@@ -1,14 +1,27 @@
 export interface IPost {
-  id: number;
+  owner_id: number;
+  post_id: number;
   firstname: string;
   lastname: string;
-  postOwnerImage: string;
   cover: string;
   date: string;
-  postDescription: string;
-  userImage: string;
+  content: string;
   likes: number;
-  commment: number;
+  comment: number;
+}
+
+export interface IPostHeader {
+  fullName: string;
+  date: string;
+}
+
+export interface IPostFooter {
+  cover: string;
+  fullName: string;
+  likes: number;
+  comments: number;
+  content: string;
+  post_id: number;
 }
 
 export interface IWrapper {

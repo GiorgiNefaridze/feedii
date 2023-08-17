@@ -3,13 +3,13 @@ import { isAxiosError } from "axios";
 
 import { axiosInstance } from "../api/baseURL";
 
-const endpoint: string = "/api/post";
+export const endpoint: string = "/api/post";
 
 interface IPost {
   owner_id: number;
   content: string;
-  cover: string;
   date: string;
+  cover?: string;
 }
 
 export const useCreate = () => {

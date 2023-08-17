@@ -43,18 +43,18 @@ const tabs: ITab[] = [
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={Routes.CreatePost}
+      initialRouteName={Routes.Feed}
       screenOptions={{
         header: () => null,
         tabBarStyle: { backgroundColor: "#4f4f4f" },
       }}
     >
-      {tabs.map(({ component, icon, id, name }: ITab) => {
+      {tabs.map(({ component, icon, id, name }: ITab, i) => {
         return (
           <Tab.Screen
             name={name}
             component={component}
-            key={id}
+            key={i}
             options={{
               tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon

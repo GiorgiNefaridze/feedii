@@ -10,14 +10,21 @@ export const createPostController = async (req, res) => {
   try {
     const { content, cover, date, owner_id } = req.body;
 
-    const isValid = isValidInputs([content, cover, date]);
+    const isValid = isValidInputs([content, date]);
 
     if (isValid) {
-      const imageCover = (
-        await cloudinary.uploader.upload("data:image/png;base64," + cover, {
-          public_id: "post_cover" + owner_id,
-        })
-      )?.url;
+      let imageCover;
+
+      if (cover?.length) {
+        imageCover = (
+          await cloudinary.uploader.upload(
+            "data:image/png;base64," + cover ?? "",
+            {
+              public_id: "post_cover" + owner_id,
+            }
+          )
+        )?.url;
+      }
 
       const createPost = await pool.query(
         "insert into posts (content,cover,date,owner_id) values ($1,$2,$3,$4) returning *",
