@@ -1,5 +1,3 @@
-import { View, Text } from "react-native";
-
 import Header from "../Header/Header";
 
 import { FeedHeaderWrapper } from "./FeedHeader.style";

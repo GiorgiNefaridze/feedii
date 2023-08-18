@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { View, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
-import { useGetPosts } from "../../hooks/useGetPosts";
+import { AuthContext } from "../../context/authContext";
+import { getUser } from "../../context/authContext";
 import { PostContext } from "../../context/postContext";
+import { useGetPosts } from "../../hooks/useGetPosts";
 import Post from "../../components/Post/Post";
 import FeedHeader from "../../components/FeedHeader/FeedHeader";
 
@@ -12,6 +14,7 @@ import styles from "./Feed.style";
 const Feed = (): JSX.Element => {
   const { posts } = PostContext();
   const { getPosts } = useGetPosts();
+  const { setUserData } = AuthContext();
 
   const isFocused = useIsFocused();
 
@@ -19,6 +22,10 @@ const Feed = (): JSX.Element => {
     (async () => {
       await getPosts();
     })();
+  }, [isFocused]);
+
+  useEffect(() => {
+    getUser(setUserData);
   }, [isFocused]);
 
   return (
