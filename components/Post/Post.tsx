@@ -4,7 +4,7 @@ import { IPost } from "./Types";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
 
-import { PostWarpper } from "./Post.style";
+import { PostWrapper } from "./Post.style";
 
 const screenWidth: number = Dimensions.get("screen").width;
 
@@ -18,9 +18,10 @@ const Post = ({
   content,
   comment,
   likes,
+  navigation,
 }: IPost): JSX.Element => {
   return (
-    <PostWarpper width={screenWidth}>
+    <PostWrapper width={screenWidth}>
       <PostHeader date={date} fullName={firstname + " " + lastname} />
       {cover?.length >= 1 && (
         <Image
@@ -36,8 +37,9 @@ const Post = ({
         content={content}
         post_id={post_id}
         cover={cover}
+        navigation={navigation}
       />
-    </PostWarpper>
+    </PostWrapper>
   );
 };
 

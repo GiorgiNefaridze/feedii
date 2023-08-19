@@ -8,6 +8,7 @@ export interface IPost {
   content: string;
   likes: number;
   comment: number;
+  navigation: any;
 }
 
 export interface IPostHeader {
@@ -22,6 +23,7 @@ export interface IPostFooter {
   comments: number;
   content: string;
   post_id: number;
+  navigation: any;
 }
 
 export interface IWrapper {

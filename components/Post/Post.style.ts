@@ -5,7 +5,7 @@ import { feedBlockBgColor } from "../../constants";
 
 import { IWrapper, IHeader, IFooter } from "./Types";
 
-export const PostWarpper = styled(View)<IWrapper>`
+export const PostWrapper = styled(View)<IWrapper>`
   width: ${({ width }) => width};
   margin-top: 10;
   margin-bottom: 10;
@@ -48,7 +48,7 @@ export const Stats = styled(TouchableOpacity)`
   column-gap: 5;
 `;
 
-export const FooterComment = styled(View)<{ width: number }>`
+export const FooterComment = styled(TouchableOpacity)<{ width: number }>`
   width: ${({ width }) => width};
   flex-direction: row;
   align-items: center;

@@ -11,6 +11,8 @@ import { useRemoveLike } from "../../hooks/useRemoveLike";
 import { usePostLike } from "../../hooks/usePostLike";
 import { IPostFooter } from "./Types";
 import { AuthContext } from "../../context/authContext";
+import { PostContext } from "../../context/postContext";
+import { Routes } from "../../navigation/Routes";
 import Heading from "../Header/Header";
 import Header from "../Header/Header";
 import Input from "../Input/Input";
@@ -28,6 +30,7 @@ const PostFooter = ({
   content,
   post_id,
   cover,
+  navigation,
 }: IPostFooter): JSX.Element => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(likes);
@@ -36,6 +39,7 @@ const PostFooter = ({
   const { likedChecker } = useIsLikedCkecker();
   const { postLike } = usePostLike();
   const { removeLike } = useRemoveLike();
+  const { posts } = PostContext();
 
   const ckeckPostOnLike = async () => {
     const liked = await likedChecker({ post_id, user_id: userData?.id });
@@ -44,19 +48,27 @@ const PostFooter = ({
   };
 
   const likePost = async () => {
+    const postData = { post_id, user_id: userData?.id };
+
     if (isLiked) {
-      removeLike({ post_id, user_id: userData?.id });
+      removeLike(postData);
       setLikesCount((prev) => Number(prev) - 1);
       return;
     }
 
-    postLike({ post_id, user_id: userData?.id });
+    postLike(postData);
     setLikesCount((prev) => Number(prev) + 1);
   };
 
+  const handleNavigate = () => {
+    navigation.navigate(Routes.DetailedPost, {
+      data: posts?.find((post) => post.post_id === post_id),
+    });
+  };
+
   useEffect(() => {
-    //Use setTimeout, cuz while requesting checker req is sending more fast and
-    //it make the logic messy(I hope call stack will do his job <3)
+    //Use setTimeout, cuz while requesting, checker req is sending more fast and
+    //it make the logic messy(I hope call stack will do his job ^-^)
     setTimeout(() => {
       ckeckPostOnLike();
     }, 100);
@@ -106,7 +118,10 @@ const PostFooter = ({
           lineHeight={18}
         />
       )}
-      <FooterComment width={screenWidth - 2 * paddingHorizontal}>
+      <FooterComment
+        width={screenWidth - 2 * paddingHorizontal}
+        onPress={handleNavigate}
+      >
         <View
           style={{
             width: 40,

@@ -11,7 +11,7 @@ import FeedHeader from "../../components/FeedHeader/FeedHeader";
 
 import styles from "./Feed.style";
 
-const Feed = (): JSX.Element => {
+const Feed = ({ navigation }: { navigation: any }): JSX.Element => {
   const { posts } = PostContext();
   const { getPosts } = useGetPosts();
   const { setUserData } = AuthContext();
@@ -33,7 +33,7 @@ const Feed = (): JSX.Element => {
       <FeedHeader />
       <FlatList
         data={posts}
-        renderItem={({ item }) => <Post {...item} />}
+        renderItem={({ item }) => <Post navigation={navigation} {...item} />}
         keyExtractor={(post) => post.post_id.toString()}
         showsVerticalScrollIndicator={false}
       />

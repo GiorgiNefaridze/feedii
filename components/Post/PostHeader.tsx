@@ -10,7 +10,7 @@ import { Header, User } from "./Post.style";
 const paddingHorizontal: number = 20;
 
 const PostHeader = ({ date, fullName }: IPostHeader): JSX.Element => {
-  const releaseDate = date.slice(0, 10);
+  const releaseDate = date?.slice(0, 10);
 
   return (
     <Header paddingHorizontal={paddingHorizontal}>

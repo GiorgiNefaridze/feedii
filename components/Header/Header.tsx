@@ -8,8 +8,10 @@ const Header = ({
   size,
   weight,
   lineHeight,
+  isContent,
 }: IHeader): JSX.Element => {
-  const content = text?.length > 110 ? text.slice(0, 110) + "..." : text;
+  const content =
+    !isContent && text?.length > 110 ? text.slice(0, 110) + "..." : text;
   return (
     <Heading color={color} size={size} weight={weight} lineHeight={lineHeight}>
       {content}
