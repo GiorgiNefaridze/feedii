@@ -26,6 +26,7 @@ CREATE TABLE likes (
 
 CREATE TABLE comments (
     comments_id BIGSERIAL PRIMARY KEY,
+    comment TEXT;
     owner INTEGER REFERENCES users (id),
     post INTEGER REFERENCES posts (post_id)
 );
