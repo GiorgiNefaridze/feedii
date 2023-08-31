@@ -28,15 +28,13 @@ const Comments = ({ comments }: { comments: IComment[] }): JSX.Element => {
           weight="500"
           lineHeight={30}
         />
-        {commentsCount > 0 && (
-          <Header
-            color="white"
-            size={3}
-            text={commentsCount.toString()}
-            weight="400"
-            lineHeight={30}
-          />
-        )}
+        <Header
+          color="white"
+          size={3}
+          text={commentsCount.toString()}
+          weight="400"
+          lineHeight={30}
+        />
       </View>
       <View style={{ rowGap: 12 }}>
         {comments?.map((comment) => {

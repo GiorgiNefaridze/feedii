@@ -46,8 +46,8 @@ const DetailedPost = ({
   const { getComments, result: allComments } = useGetComments();
 
   const getAllComments = async () => {
-    await getComments(post?.post_id);
-    if (allComments.length) {
+    await getComments(params.data?.post_id);
+    if (allComments?.length > 0) {
       setComments(allComments);
     }
   };
@@ -56,7 +56,7 @@ const DetailedPost = ({
     const post = params?.data;
     setPost(post);
     getAllComments();
-  }, [allComments, params.data?.post_id]);
+  }, [allComments?.length, params?.data?.post_id]);
 
   useEffect(() => {
     if (result?.length) {
@@ -79,7 +79,7 @@ const DetailedPost = ({
   const handleComment = async () => {
     await createComment({
       owner_id: userData.id,
-      post_id: params.data.post_id,
+      post_id: params?.data?.post_id,
       comment: value,
     });
     getAllComments();
@@ -115,9 +115,9 @@ const DetailedPost = ({
         <Comments comments={comments} />
       </PostWrapper>
       <PostFooter>
-        <Stats onPress={() => {}}>
+        <Stats>
           <FontAwesomeIcon
-            icon={isLiked ? solidHeart : faHeart}
+            icon={post?.isLiked ? solidHeart : faHeart}
             color="white"
           />
         </Stats>

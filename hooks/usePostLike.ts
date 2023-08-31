@@ -8,7 +8,7 @@ export const usePostLike = () => {
     try {
       await (await axiosInstance()).post(endpoint, data);
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error.response.data.response);
     }
   };
 

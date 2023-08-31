@@ -9,6 +9,7 @@ export interface IPost {
   likes: number;
   comment: number;
   navigation: any;
+  isLiked: boolean;
 }
 
 export interface IPostHeader {

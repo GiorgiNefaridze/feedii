@@ -5,6 +5,7 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { useIsFocused } from "@react-navigation/native";
 
 import { useIsLikedCkecker } from "../../hooks/useIsLikedCkecker";
 import { useRemoveLike } from "../../hooks/useRemoveLike";
@@ -37,14 +38,16 @@ const PostFooter = ({
   const { postLike } = usePostLike();
   const { removeLike } = useRemoveLike();
   const { posts } = PostContext();
+  const isFocused = useIsFocused();
 
   const ckeckPostOnLike = async () => {
     const liked = await likedChecker({ post_id, user_id: userData?.id });
+    console.log("liked", liked);
 
     setIsLiked(liked);
   };
 
-  const likePost = async () => {
+  const likePost = () => {
     const postData = { post_id, user_id: userData?.id };
 
     if (isLiked) {
@@ -59,7 +62,7 @@ const PostFooter = ({
 
   const handleNavigate = () => {
     navigation.navigate(Routes.DetailedPost, {
-      data: posts?.find((post) => post.post_id === post_id),
+      data: { ...posts?.find((post) => post.post_id === post_id), isLiked },
     });
   };
 
@@ -69,7 +72,7 @@ const PostFooter = ({
     setTimeout(() => {
       ckeckPostOnLike();
     }, 100);
-  }, [likesCount, userData?.id]);
+  }, [likesCount, userData?.id, isFocused]);
 
   return (
     <Footer paddingHorizontal={0} width={screenWidth - 2 * paddingHorizontal}>
