@@ -8,12 +8,18 @@ export const createCommentController = async (req, res) => {
     const isValid = isValidInputs([comment]);
 
     if (isValid && owner_id && post_id) {
-      await pool.query(
+      const createdComment = await pool.query(
         "insert into comments (owner,post,comment) values ($1,$2,$3) returning *",
         [owner_id, post_id, comment]
       );
+
+      if (createdComment.rows?.length > 0) {
+        res.status(201).json({ response: "Comment has been added 💬" });
+      } else {
+        throw new Error("Something went wrong");
+      }
     } else {
-      res.status(500).json({ response: "Something went wrong" });
+      throw new Error("Something went wrong");
     }
   } catch (error) {
     res.status(500).json({ response: error.message });

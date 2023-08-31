@@ -1,7 +1,11 @@
 import { ScrollView, View } from "react-native";
 import styled from "styled-components";
 
-import { feedBgColor } from "../../constants";
+import { feedBgColor, darkBgColor } from "../../constants";
+
+interface Iprops {
+  width: number;
+}
 
 export const PostWrapper = styled(ScrollView)`
   flex: 1;
@@ -17,7 +21,17 @@ export const PostFooter = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: red;
+  background-color: #29292b;
   padding-left: 25;
   padding-right: 25;
+`;
+
+export const CommentBox = styled(View)<Iprops>`
+  width: ${({ width }) => width + "px"};
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: ${darkBgColor};
+  align-items: center;
+  border-radius: 10px;
+  padding-right: 15px;
 `;

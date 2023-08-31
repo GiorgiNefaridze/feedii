@@ -26,7 +26,7 @@ router.post("/like", likePostController);
 router.delete("/like", removeLikeController);
 
 //Get comments
-router.get("/commets/:post_id", getCommentsController);
+router.get("/comments/:post_id", getCommentsController);
 
 //Write comment
 router.post("/comment", createCommentController);

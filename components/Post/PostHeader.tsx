@@ -49,18 +49,6 @@ const PostHeader = ({ date, fullName }: IPostHeader): JSX.Element => {
           />
         </View>
       </User>
-      <Button
-        text="Follow"
-        color="white"
-        bgColor={tabBarIconActiveColor}
-        borderColor={tabBarIconActiveColor}
-        borderRadius={10}
-        handlePress={() => {}}
-        padding={8}
-        width={70}
-        textTransform="uppercase"
-        isDisabled={false}
-      />
     </Header>
   );
 };

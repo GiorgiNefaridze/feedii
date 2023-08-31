@@ -9,11 +9,11 @@ export const PostWrapper = styled(View)<IWrapper>`
   width: ${({ width }) => width};
   margin-top: 10;
   margin-bottom: 10;
-  align-items: center;
+  align-items: flex-start;
   background-color: ${feedBlockBgColor};
   row-gap: 12;
   padding-top: 20;
-  padding-bottom: 5;
+  padding-bottom: 15;
 `;
 
 export const Header = styled(View)<IHeader>`
@@ -32,6 +32,7 @@ export const User = styled(View)`
 
 export const Footer = styled(View)<IFooter>`
   width: ${({ width }) => width};
+  align-self: center;
   padding-inline: ${({ paddingHorizontal }) => paddingHorizontal};
   row-gap: 5;
 `;

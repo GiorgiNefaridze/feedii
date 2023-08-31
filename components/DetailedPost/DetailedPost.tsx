@@ -10,17 +10,24 @@ import {
   faArrowLeft,
   faHeart as solidHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Toast from "react-native-toast-message";
 
 import { IPost } from "../Post/Types";
 import { IProps } from "./Types";
-import { darkBgColor } from "../../constants";
+import { darkBgColor, successMessage, errorMessage } from "../../constants";
+import { AuthContext } from "../../context/authContext";
+import { useCreateComment } from "../../hooks/useCreateComment";
+import { useGetComments } from "../../hooks/useGetComments";
+import { IComment } from "../Comments/Types";
+import Comments from "../Comments/Comments";
 import PostHeader from "../Post/PostHeader";
 import Header from "../Header/Header";
 import Input from "../Input/Input";
 
-import { PostWrapper, PostFooter } from "./DetailedPost.style";
+import { PostWrapper, PostFooter, CommentBox } from "./DetailedPost.style";
 import { Stats } from "../Post/Post.style";
 
 const screenWidth = Dimensions.get("screen").width;
@@ -30,15 +37,52 @@ const DetailedPost = ({
   navigation,
 }: IProps): JSX.Element => {
   const [post, setPost] = useState<IPost>({} as IPost);
+  const [comments, setComments] = useState<IComment[]>([]);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
+  const { userData } = AuthContext();
+  const { createComment, result, err, setErr, setResult } = useCreateComment();
+  const { getComments, result: allComments } = useGetComments();
+
+  const getAllComments = async () => {
+    await getComments(post?.post_id);
+    if (allComments.length) {
+      setComments(allComments);
+    }
+  };
+
   useEffect(() => {
-    setPost(params?.data);
-  }, []);
+    const post = params?.data;
+    setPost(post);
+    getAllComments();
+  }, [allComments, params.data?.post_id]);
+
+  useEffect(() => {
+    if (result?.length) {
+      Toast.show({ type: "success", text1: successMessage, text2: result });
+      setResult("");
+    }
+
+    if (err?.length) {
+      Toast.show({ type: "error", text1: errorMessage, text2: err });
+      setErr("");
+    }
+
+    setValue("");
+  }, [err, result]);
 
   const handleBack = () => {
     navigation?.goBack();
+  };
+
+  const handleComment = async () => {
+    await createComment({
+      owner_id: userData.id,
+      post_id: params.data.post_id,
+      comment: value,
+    });
+    getAllComments();
   };
 
   return (
@@ -68,6 +112,7 @@ const DetailedPost = ({
           lineHeight={25}
           isContent={true}
         />
+        <Comments comments={comments} />
       </PostWrapper>
       <PostFooter>
         <Stats onPress={() => {}}>
@@ -76,20 +121,25 @@ const DetailedPost = ({
             color="white"
           />
         </Stats>
-        <Input
-          width={screenWidth - 90}
-          text="Write a comment"
-          borderColor="transparent"
-          placeholderTextColor="grey"
-          borderRadius={10}
-          handleChange={setValue}
-          value={value}
-          keyboardType="default"
-          secure={false}
-          inpPadding={10}
-          bgColor={darkBgColor}
-        />
+        <CommentBox width={screenWidth - 90}>
+          <Input
+            text="Write a comment"
+            borderColor="transparent"
+            placeholderTextColor="grey"
+            borderRadius={10}
+            handleChange={setValue}
+            value={value}
+            keyboardType="default"
+            secure={false}
+            inpPadding={10}
+            bgColor={darkBgColor}
+          />
+          <TouchableOpacity onPress={handleComment}>
+            <FontAwesomeIcon icon={faPaperPlane} color="white" size={15} />
+          </TouchableOpacity>
+        </CommentBox>
       </PostFooter>
+      <Toast />
     </SafeAreaView>
   );
 };

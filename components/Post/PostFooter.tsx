@@ -13,9 +13,6 @@ import { IPostFooter } from "./Types";
 import { AuthContext } from "../../context/authContext";
 import { PostContext } from "../../context/postContext";
 import { Routes } from "../../navigation/Routes";
-import Heading from "../Header/Header";
-import Header from "../Header/Header";
-import Input from "../Input/Input";
 
 import { Footer, FooterStats, Stats, FooterComment } from "./Post.style";
 
@@ -76,15 +73,6 @@ const PostFooter = ({
 
   return (
     <Footer paddingHorizontal={0} width={screenWidth - 2 * paddingHorizontal}>
-      {cover?.length < 1 && (
-        <Header
-          color="white"
-          size={4}
-          text={content}
-          weight="400"
-          lineHeight={25}
-        />
-      )}
       <FooterStats>
         <View
           style={{
@@ -100,7 +88,7 @@ const PostFooter = ({
             />
             <Text style={{ color: "white" }}>{likesCount}</Text>
           </Stats>
-          <Stats>
+          <Stats onPress={handleNavigate}>
             <FontAwesomeIcon icon={faComment} color="white" />
             <Text style={{ color: "white" }}>{comments}</Text>
           </Stats>
@@ -109,48 +97,6 @@ const PostFooter = ({
           <FontAwesomeIcon icon={faBookmark} color="white" />
         </TouchableOpacity>
       </FooterStats>
-      {cover?.length >= 1 && (
-        <Header
-          color="white"
-          size={4}
-          text={content}
-          weight="400"
-          lineHeight={18}
-        />
-      )}
-      <FooterComment
-        width={screenWidth - 2 * paddingHorizontal}
-        onPress={handleNavigate}
-      >
-        <View
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 50,
-            backgroundColor: "red",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Heading
-            color="white"
-            size={2}
-            text={fullName?.slice(0, 1)}
-            weight="400"
-          />
-        </View>
-        <Input
-          width={screenWidth - 2 * paddingHorizontal - 30 - gapBtwInpAndAvatar}
-          borderRadius={0}
-          placeholderTextColor="grey"
-          borderColor="transparent"
-          handleChange={() => {}}
-          keyboardType="default"
-          secure={false}
-          text="Add comment..."
-          value=""
-        />
-      </FooterComment>
     </Footer>
   );
 };

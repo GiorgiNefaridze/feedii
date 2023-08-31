@@ -1,10 +1,11 @@
-import { Dimensions, Image } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 
 import { IPost } from "./Types";
 import PostHeader from "./PostHeader";
 import PostFooter from "./PostFooter";
 
 import { PostWrapper } from "./Post.style";
+import Header from "../Header/Header";
 
 const screenWidth: number = Dimensions.get("screen").width;
 
@@ -23,6 +24,15 @@ const Post = ({
   return (
     <PostWrapper width={screenWidth}>
       <PostHeader date={date} fullName={firstname + " " + lastname} />
+      <View style={{ paddingHorizontal: 15 }}>
+        <Header
+          color="white"
+          size={4}
+          text={content}
+          weight="400"
+          lineHeight={18}
+        />
+      </View>
       {cover?.length >= 1 && (
         <Image
           source={{ uri: cover }}
