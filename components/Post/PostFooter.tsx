@@ -42,7 +42,6 @@ const PostFooter = ({
 
   const ckeckPostOnLike = async () => {
     const liked = await likedChecker({ post_id, user_id: userData?.id });
-    console.log("liked", liked);
 
     setIsLiked(liked);
   };

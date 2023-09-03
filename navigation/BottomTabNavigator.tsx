@@ -43,7 +43,7 @@ const tabs: ITab[] = [
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={Routes.Feed}
+      initialRouteName={Routes.Profile}
       screenOptions={{
         header: () => null,
         tabBarStyle: { backgroundColor: "#4f4f4f" },

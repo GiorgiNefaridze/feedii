@@ -7,4 +7,6 @@ export const Routes = {
   Feed: "Feed",
   CreatePost: "Create",
   Profile: "Profile",
+  editProfile: "Edit Profile",
+  savePosts: "Save Posts",
 };
