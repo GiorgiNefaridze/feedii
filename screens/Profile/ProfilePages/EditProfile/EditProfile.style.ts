@@ -18,4 +18,3 @@ export const EditProfileWrapper = styled(View)<IProps>`
 export const EditProfileInputsWrapper = styled(View)`
   row-gap: 15;
 `;
-

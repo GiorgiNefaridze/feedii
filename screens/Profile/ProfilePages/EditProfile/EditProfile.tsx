@@ -23,6 +23,7 @@ const EditProfile = ({ navigation }: INavigation) => {
     firstName: "",
     lastName: "",
     password: "",
+    confirmPassword: "",
   });
 
   useEffect(() => {
@@ -109,6 +110,28 @@ const EditProfile = ({ navigation }: INavigation) => {
               secure={false}
               text="New password"
               value={form.password}
+              width={screenWidth - 2 * paddingHorizontal}
+              inpPadding={10}
+              placeholderTextColor="grey"
+            />
+          </View>
+          <View style={{ rowGap: 5 }}>
+            <Header
+              color="white"
+              size={2}
+              text="Confirm new Password:"
+              weight="500"
+            />
+            <Input
+              borderColor="grey"
+              borderRadius={8}
+              handleChange={(e) =>
+                setForm((prevForm) => ({ ...prevForm, confirmPassword: e }))
+              }
+              keyboardType="default"
+              secure={false}
+              text="New password"
+              value={form.confirmPassword}
               width={screenWidth - 2 * paddingHorizontal}
               inpPadding={10}
               placeholderTextColor="grey"

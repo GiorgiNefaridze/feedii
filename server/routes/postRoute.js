@@ -7,6 +7,7 @@ import { likePostController } from "../controllers/likePostController.js";
 import { removeLikeController } from "../controllers/removeLikeController.js";
 import { getCommentsController } from "../controllers/getCommentsController.js";
 import { createCommentController } from "../controllers/createCommentController.js";
+import { updateProfileController } from "../controllers/updateProfileController.js";
 
 const router = Router();
 
@@ -15,6 +16,8 @@ router.get("/", getAllPostController);
 
 //Create a post
 router.post("/", createPostController);
+
+router.post("/update-profile", updateProfileController);
 
 //Check users' liked posts
 router.post("/liked-post", getLikedPostController);
