@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={Routes.Home}
+      initialRouteName={Routes.editProfile}
       screenOptions={{ header: () => null }}
     >
       <Stack.Screen name={Routes.Login} component={Login} />
