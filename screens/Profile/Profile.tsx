@@ -1,4 +1,4 @@
-import { View, Dimensions, SafeAreaView } from "react-native";
+import { View, Dimensions } from "react-native";
 import {
   faNewspaper,
   faFloppyDisk,
@@ -35,40 +35,38 @@ const Profile = ({ navigation }: INavigation): JSX.Element => {
   };
 
   return (
-    <SafeAreaView>
-      <ProfileWrapper>
-        <View style={{ alignItems: "center", rowGap: 15 }}>
-          <Avatar>
-            <Header
-              color="white"
-              size={2}
-              text={firstname?.slice(0, 1)}
-              weight="400"
-            />
-          </Avatar>
-          <Header color="white" size={1} text={fullName} />
-        </View>
-        <ProfileOptionsWrapper>
-          <ProfileOptionBlock width={screenWidth}>
-            <Option
-              handleClick={() => handleNavigation(Routes.editProfile)}
-              content={profileOptions.editProfileInformation}
-              icon={faNewspaper}
-            />
-            <Option
-              handleClick={() => handleNavigation(Routes.savePosts)}
-              content={profileOptions.savePosts}
-              icon={faFloppyDisk}
-            />
-            <Option content={profileOptions.delete} icon={faTrash} />
-          </ProfileOptionBlock>
-          <ProfileOptionBlock width={screenWidth}>
-            <Option content={profileOptions.theme} icon={faPalette} />
-            <Option content={profileOptions.languages} icon={faEarthAmerica} />
-          </ProfileOptionBlock>
-        </ProfileOptionsWrapper>
-      </ProfileWrapper>
-    </SafeAreaView>
+    <ProfileWrapper>
+      <View style={{ alignItems: "center", rowGap: 15 }}>
+        <Avatar>
+          <Header
+            color="white"
+            size={2}
+            text={firstname?.slice(0, 1)}
+            weight="400"
+          />
+        </Avatar>
+        <Header color="white" size={1} text={fullName} />
+      </View>
+      <ProfileOptionsWrapper>
+        <ProfileOptionBlock width={screenWidth}>
+          <Option
+            handleClick={() => handleNavigation(Routes.editProfile)}
+            content={profileOptions.editProfileInformation}
+            icon={faNewspaper}
+          />
+          <Option
+            handleClick={() => handleNavigation(Routes.savePosts)}
+            content={profileOptions.savePosts}
+            icon={faFloppyDisk}
+          />
+          <Option content={profileOptions.delete} icon={faTrash} />
+        </ProfileOptionBlock>
+        <ProfileOptionBlock width={screenWidth}>
+          <Option content={profileOptions.theme} icon={faPalette} />
+          <Option content={profileOptions.languages} icon={faEarthAmerica} />
+        </ProfileOptionBlock>
+      </ProfileOptionsWrapper>
+    </ProfileWrapper>
   );
 };
 

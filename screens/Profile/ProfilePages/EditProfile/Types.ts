@@ -11,6 +11,5 @@ export interface IProps {
 export interface IForm {
   firstName: string;
   lastName: string;
-  password: string;
-  confirmPassword: string;
+  secret: string;
 }
