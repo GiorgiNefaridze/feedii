@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 import { axiosInstance } from "../api/baseURL";
 
 export interface IData {
@@ -16,7 +18,9 @@ export const useIsLikedCkecker = () => {
 
       return response;
     } catch (error) {
-      console.error(error.response.data);
+      if (isAxiosError(error)) {
+        console.error(error.response.data?.response);
+      }
       return false;
     }
   };

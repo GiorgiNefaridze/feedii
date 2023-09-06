@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 import { endpoint } from "./useCreate";
 import { axiosInstance } from "../api/baseURL";
 import { PostContext } from "../context/postContext";
@@ -12,7 +14,11 @@ export const useGetPosts = () => {
       } = await (await axiosInstance()).get(endpoint);
 
       setPosts(response);
-    } catch (error) {}
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error(error);
+      }
+    }
   };
 
   return { getPosts };

@@ -1,33 +1,36 @@
 import { useState, useEffect } from "react";
-import { View, Text, Dimensions, TouchableOpacity } from "react-native";
+import { Text, Dimensions, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faComment } from "@fortawesome/free-regular-svg-icons";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart,
+  faComment,
+  faBookmark,
+} from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { useIsFocused } from "@react-navigation/native";
 
 import { useIsLikedCkecker } from "../../hooks/useIsLikedCkecker";
 import { useRemoveLike } from "../../hooks/useRemoveLike";
 import { usePostLike } from "../../hooks/usePostLike";
-import { IPostFooter } from "./Types";
 import { AuthContext } from "../../context/authContext";
 import { PostContext } from "../../context/postContext";
 import { Routes } from "../../navigation/Routes";
+import { IPostFooter } from "./Types";
 
-import { Footer, FooterStats, Stats, FooterComment } from "./Post.style";
+import {
+  Footer,
+  FooterStats,
+  StatisticBlock,
+  FooterStatsContainer,
+} from "./Post.style";
 
 const screenWidth: number = Dimensions.get("screen").width,
-  paddingHorizontal: number = 10,
-  gapBtwInpAndAvatar: number = 0;
+  paddingHorizontal: number = 10;
 
 const PostFooter = ({
-  fullName,
+  post_id,
   comments,
   likes,
-  content,
-  post_id,
-  cover,
   navigation,
 }: IPostFooter): JSX.Element => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -67,7 +70,7 @@ const PostFooter = ({
 
   useEffect(() => {
     //Use setTimeout, cuz while requesting, checker req is sending more fast and
-    //it make the logic messy(I hope call stack will do his job ^-^)
+    //it make the logic messy(I hope call stack will do his job)
     setTimeout(() => {
       ckeckPostOnLike();
     }, 100);
@@ -76,25 +79,19 @@ const PostFooter = ({
   return (
     <Footer paddingHorizontal={0} width={screenWidth - 2 * paddingHorizontal}>
       <FooterStats>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            columnGap: 12,
-          }}
-        >
-          <Stats onPress={likePost}>
+        <FooterStatsContainer>
+          <StatisticBlock onPress={likePost}>
             <FontAwesomeIcon
               icon={isLiked ? solidHeart : faHeart}
               color="white"
             />
             <Text style={{ color: "white" }}>{likesCount}</Text>
-          </Stats>
-          <Stats onPress={handleNavigate}>
+          </StatisticBlock>
+          <StatisticBlock onPress={handleNavigate}>
             <FontAwesomeIcon icon={faComment} color="white" />
             <Text style={{ color: "white" }}>{comments}</Text>
-          </Stats>
-        </View>
+          </StatisticBlock>
+        </FooterStatsContainer>
         <TouchableOpacity>
           <FontAwesomeIcon icon={faBookmark} color="white" />
         </TouchableOpacity>

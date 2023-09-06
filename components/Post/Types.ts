@@ -1,3 +1,5 @@
+import { NavigationProp } from "@react-navigation/native";
+
 export interface IPost {
   owner_id: number;
   post_id: number;
@@ -8,7 +10,7 @@ export interface IPost {
   content: string;
   likes: number;
   comment: number;
-  navigation: any;
+  navigation: NavigationProp<any>;
   isLiked: boolean;
 }
 
@@ -18,21 +20,14 @@ export interface IPostHeader {
 }
 
 export interface IPostFooter {
-  cover: string;
-  fullName: string;
   likes: number;
   comments: number;
-  content: string;
   post_id: number;
-  navigation: any;
+  navigation: NavigationProp<any>;
 }
 
-export interface IWrapper {
-  width: number;
-}
-
-export interface IHeader {
-  paddingHorizontal: number;
+export interface IProps {
+  [key: string]: number;
 }
 
 export interface IFooter {

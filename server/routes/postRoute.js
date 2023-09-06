@@ -34,4 +34,7 @@ router.get("/comments/:post_id", getCommentsController);
 //Write comment
 router.post("/comment", createCommentController);
 
+//Bookmark post
+router.post("/bookmark", bookmarkController);
+
 export default router;

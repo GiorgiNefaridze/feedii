@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 import { axiosInstance } from "../api/baseURL";
 import { IData } from "./useIsLikedCkecker";
 
@@ -8,7 +10,9 @@ export const usePostLike = () => {
     try {
       await (await axiosInstance()).post(endpoint, data);
     } catch (error) {
-      console.error(error.response.data.response);
+      if (isAxiosError(error)) {
+        console.error(error.response.data?.response);
+      }
     }
   };
 

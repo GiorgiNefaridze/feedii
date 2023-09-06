@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-import Header from "../../components/Header/Header";
-import { IOption } from "./Types";
+import Header from "../../../components/Header/Header";
+import { IOption } from "../Types";
 
-import { ProfileOption } from "./Profile.style";
+import { ProfileOption } from "./Option.style";
 
 const Option = ({ icon, content, handleClick }: IOption): JSX.Element => {
   const [isTouched, setIsTouched] = useState<boolean>(false);

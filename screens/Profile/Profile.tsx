@@ -1,4 +1,4 @@
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, ActivityIndicator } from "react-native";
 import {
   faNewspaper,
   faFloppyDisk,
@@ -12,7 +12,7 @@ import { profileOptions } from "../../constants";
 import { INavigation } from "./ProfilePages/EditProfile/Types";
 import { Routes } from "../../navigation/Routes";
 import Header from "../../components/Header/Header";
-import Option from "./Option";
+import Option from "./Option/Option";
 
 import {
   ProfileWrapper,
@@ -62,8 +62,36 @@ const Profile = ({ navigation }: INavigation): JSX.Element => {
           <Option content={profileOptions.delete} icon={faTrash} />
         </ProfileOptionBlock>
         <ProfileOptionBlock width={screenWidth}>
-          <Option content={profileOptions.theme} icon={faPalette} />
-          <Option content={profileOptions.languages} icon={faEarthAmerica} />
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Option content={profileOptions.theme} icon={faPalette} />
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                columnGap: 5,
+              }}
+            >
+              <Header color="grey" size={4} text="Under development..." />
+              <ActivityIndicator size={17} color={"grey"} />
+            </View>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Option content={profileOptions.languages} icon={faEarthAmerica} />
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                columnGap: 5,
+              }}
+            >
+              <Header color="grey" size={4} text="Under development..." />
+              <ActivityIndicator size={17} color={"grey"} />
+            </View>
+          </View>
         </ProfileOptionBlock>
       </ProfileOptionsWrapper>
     </ProfileWrapper>

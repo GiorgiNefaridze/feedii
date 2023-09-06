@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import { feedBlockBgColor } from "../../constants";
 
-import { IWrapper, IHeader, IFooter } from "./Types";
+import { IProps, IFooter } from "./Types";
 
-export const PostWrapper = styled(View)<IWrapper>`
+export const PostWrapper = styled(View)<IProps>`
   width: ${({ width }) => width};
   margin-top: 10;
   margin-bottom: 10;
@@ -16,7 +16,7 @@ export const PostWrapper = styled(View)<IWrapper>`
   padding-bottom: 15;
 `;
 
-export const Header = styled(View)<IHeader>`
+export const Header = styled(View)<IProps>`
   width: 100%;
   padding-inline: ${({ paddingHorizontal }) => paddingHorizontal};
   flex-direction: row;
@@ -28,6 +28,15 @@ export const User = styled(View)`
   flex-direction: row;
   align-items: center;
   column-gap: 10;
+`;
+
+export const UserInfo = styled(View)`
+  width: 40;
+  height: 40;
+  border-radius: 50px;
+  background-color: red;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Footer = styled(View)<IFooter>`
@@ -43,15 +52,14 @@ export const FooterStats = styled(View)`
   justify-content: space-between;
 `;
 
-export const Stats = styled(TouchableOpacity)`
+export const FooterStatsContainer = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  column-gap: 12;
+`;
+
+export const StatisticBlock = styled(TouchableOpacity)`
   flex-direction: row;
   align-items: center;
   column-gap: 5;
-`;
-
-export const FooterComment = styled(TouchableOpacity)<{ width: number }>`
-  width: ${({ width }) => width};
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `;

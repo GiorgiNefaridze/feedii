@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 import { axiosInstance } from "../api/baseURL";
 import { IData } from "./useIsLikedCkecker";
 
@@ -10,7 +12,9 @@ export const useRemoveLike = () => {
         await axiosInstance()
       ).delete(endpoint + `?post_id=${data.post_id}&user_id=${data.user_id}`);
     } catch (error) {
-      console.error(error.response.data);
+      if (isAxiosError(error)) {
+        console.error(error.response.data?.response);
+      }
     }
   };
 

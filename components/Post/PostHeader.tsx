@@ -1,11 +1,9 @@
 import { View } from "react-native";
 
-import { tabBarIconActiveColor } from "../../constants";
 import { IPostHeader } from "./Types";
 import Text from "../Header/Header";
-import Button from "../Button/Button";
 
-import { Header, User } from "./Post.style";
+import { Header, User, UserInfo } from "./Post.style";
 
 const paddingHorizontal: number = 20;
 
@@ -15,23 +13,14 @@ const PostHeader = ({ date, fullName }: IPostHeader): JSX.Element => {
   return (
     <Header paddingHorizontal={paddingHorizontal}>
       <User>
-        <View
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 50,
-            backgroundColor: "red",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <UserInfo>
           <Text
             color="white"
             size={2}
             text={fullName?.slice(0, 1)}
             weight="400"
           />
-        </View>
+        </UserInfo>
         <View>
           <Text
             color="white"
