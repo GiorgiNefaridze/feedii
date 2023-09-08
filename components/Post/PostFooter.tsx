@@ -10,6 +10,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { useIsFocused } from "@react-navigation/native";
 
 import { useIsLikedCkecker } from "../../hooks/useIsLikedCkecker";
+import { useBookmark } from "../../hooks/useBookmark";
 import { useRemoveLike } from "../../hooks/useRemoveLike";
 import { usePostLike } from "../../hooks/usePostLike";
 import { AuthContext } from "../../context/authContext";
@@ -41,6 +42,7 @@ const PostFooter = ({
   const { postLike } = usePostLike();
   const { removeLike } = useRemoveLike();
   const { posts } = PostContext();
+  const { bookmark, result, setResult } = useBookmark();
   const isFocused = useIsFocused();
 
   const ckeckPostOnLike = async () => {
@@ -68,6 +70,10 @@ const PostFooter = ({
     });
   };
 
+  const savePost = () => {
+    bookmark({ post_id, user_id: userData?.id });
+  };
+
   useEffect(() => {
     //Use setTimeout, cuz while requesting, checker req is sending more fast and
     //it make the logic messy(I hope call stack will do his job)
@@ -92,7 +98,7 @@ const PostFooter = ({
             <Text style={{ color: "white" }}>{comments}</Text>
           </StatisticBlock>
         </FooterStatsContainer>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={savePost} style={{ marginRight: 30 }}>
           <FontAwesomeIcon icon={faBookmark} color="white" />
         </TouchableOpacity>
       </FooterStats>

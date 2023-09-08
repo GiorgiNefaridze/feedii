@@ -26,7 +26,14 @@ CREATE TABLE likes (
 
 CREATE TABLE comments (
     comments_id BIGSERIAL PRIMARY KEY,
-    comment TEXT NOT NULL;
+    comment TEXT NOT NULL,
     owner INTEGER REFERENCES users (id),
     post INTEGER REFERENCES posts (post_id)
+);
+
+CREATE TABLE bookmarks (
+    id BIGSERIAL PRIMARY KEY,
+    post_id INT REFERENCES posts (post_id),
+    owner_id INT REFERENCES users (id),
+    UNIQUE(post_id, owner_id)
 );

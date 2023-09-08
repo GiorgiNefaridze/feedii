@@ -8,6 +8,7 @@ import { removeLikeController } from "../controllers/removeLikeController.js";
 import { getCommentsController } from "../controllers/getCommentsController.js";
 import { createCommentController } from "../controllers/createCommentController.js";
 import { updateProfileController } from "../controllers/updateProfileController.js";
+import { bookmarkController } from "../controllers/bookmarkController.js";
 
 const router = Router();
 
