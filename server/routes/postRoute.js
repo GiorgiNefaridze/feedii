@@ -11,6 +11,7 @@ import { updateProfileController } from "../controllers/updateProfileController.
 import { bookmarkController } from "../controllers/bookmarkController.js";
 import { checkBookmarkController } from "../controllers/checkBookmarkController.js";
 import { removeBookmarkController } from "../controllers/removeBookmarkController.js";
+import { getAllBookmark } from "../controllers/getAllBookmark.js";
 
 const router = Router();
 
@@ -45,5 +46,8 @@ router.delete("/bookmark", removeBookmarkController);
 
 //Check whether post is saved or not
 router.post("/check-bookmark", checkBookmarkController);
+
+//Get all bookmarked posts
+router.get("/bookmark/:id", getAllBookmark);
 
 export default router;

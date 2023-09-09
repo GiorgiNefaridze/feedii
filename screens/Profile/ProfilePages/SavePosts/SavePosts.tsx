@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { View, Text } from "react-native";
-import React from "react";
+
+import { SavePostsWrapper } from "./SavePosts.style";
 
 const SavePosts = () => {
   return (
-    <View>
+    <SavePostsWrapper>
       <Text>SavePosts</Text>
-    </View>
+    </SavePostsWrapper>
   );
 };
 

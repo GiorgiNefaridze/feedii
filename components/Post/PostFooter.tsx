@@ -95,7 +95,7 @@ const PostFooter = ({
 
       setIsSaved(isChecked);
     })();
-  }, [isSaved]);
+  }, [isSaved, userData?.id, post_id]);
 
   const savePost = () => {
     const postData = { post_id, user_id: userData?.id };
