@@ -10,7 +10,7 @@ export interface IPost {
   content: string;
   likes: number;
   comment: number;
-  navigation: NavigationProp<any>;
+  navigationProp: NavigationProp<any>;
   isLiked: boolean;
 }
 

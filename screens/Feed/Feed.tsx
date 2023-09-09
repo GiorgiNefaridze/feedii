@@ -28,7 +28,9 @@ const Feed = ({ navigation }: { navigation: any }): JSX.Element => {
       <FeedHeader />
       <FlatList
         data={posts}
-        renderItem={({ item }) => <Post navigation={navigation} {...item} />}
+        renderItem={({ item }) => (
+          <Post navigationProp={navigation} {...item} />
+        )}
         keyExtractor={(post) => post.post_id.toString()}
         showsVerticalScrollIndicator={false}
       />

@@ -9,6 +9,8 @@ import { getCommentsController } from "../controllers/getCommentsController.js";
 import { createCommentController } from "../controllers/createCommentController.js";
 import { updateProfileController } from "../controllers/updateProfileController.js";
 import { bookmarkController } from "../controllers/bookmarkController.js";
+import { checkBookmarkController } from "../controllers/checkBookmarkController.js";
+import { removeBookmarkController } from "../controllers/removeBookmarkController.js";
 
 const router = Router();
 
@@ -37,5 +39,11 @@ router.post("/comment", createCommentController);
 
 //Bookmark post
 router.post("/bookmark", bookmarkController);
+
+//Remove bookmark
+router.delete("/bookmark", removeBookmarkController);
+
+//Check whether post is saved or not
+router.post("/check-bookmark", checkBookmarkController);
 
 export default router;

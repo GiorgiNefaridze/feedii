@@ -6,13 +6,18 @@ import {
   faComment,
   faBookmark,
 } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as solidHeart,
+  faBookmark as solidBookmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { useIsFocused } from "@react-navigation/native";
 
 import { useIsLikedCkecker } from "../../hooks/useIsLikedCkecker";
-import { useBookmark } from "../../hooks/useBookmark";
 import { useRemoveLike } from "../../hooks/useRemoveLike";
 import { usePostLike } from "../../hooks/usePostLike";
+import { useBookmark } from "../../hooks/useBookmark";
+import { useBookmarkChecker } from "../../hooks/useBookmarkChecker";
+import { useRemoveBookmark } from "../../hooks/useRemoveBookmark";
 import { AuthContext } from "../../context/authContext";
 import { PostContext } from "../../context/postContext";
 import { Routes } from "../../navigation/Routes";
@@ -35,6 +40,7 @@ const PostFooter = ({
   navigation,
 }: IPostFooter): JSX.Element => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(likes);
 
   const { userData } = AuthContext();
@@ -42,7 +48,9 @@ const PostFooter = ({
   const { postLike } = usePostLike();
   const { removeLike } = useRemoveLike();
   const { posts } = PostContext();
-  const { bookmark, result, setResult } = useBookmark();
+  const { bookmark } = useBookmark();
+  const { bookmarkChecker } = useBookmarkChecker();
+  const { removeBookmark } = useRemoveBookmark();
   const isFocused = useIsFocused();
 
   const ckeckPostOnLike = async () => {
@@ -70,10 +78,6 @@ const PostFooter = ({
     });
   };
 
-  const savePost = () => {
-    bookmark({ post_id, user_id: userData?.id });
-  };
-
   useEffect(() => {
     //Use setTimeout, cuz while requesting, checker req is sending more fast and
     //it make the logic messy(I hope call stack will do his job)
@@ -81,6 +85,29 @@ const PostFooter = ({
       ckeckPostOnLike();
     }, 100);
   }, [likesCount, userData?.id, isFocused]);
+
+  useEffect(() => {
+    (async () => {
+      const isChecked = await bookmarkChecker({
+        post_id,
+        user_id: userData?.id,
+      });
+
+      setIsSaved(isChecked);
+    })();
+  }, [isSaved]);
+
+  const savePost = () => {
+    const postData = { post_id, user_id: userData?.id };
+
+    if (isSaved) {
+      removeBookmark(postData);
+      setIsSaved(false);
+    } else {
+      bookmark(postData);
+      setIsSaved(true);
+    }
+  };
 
   return (
     <Footer paddingHorizontal={0} width={screenWidth - 2 * paddingHorizontal}>
@@ -99,7 +126,10 @@ const PostFooter = ({
           </StatisticBlock>
         </FooterStatsContainer>
         <TouchableOpacity onPress={savePost} style={{ marginRight: 30 }}>
-          <FontAwesomeIcon icon={faBookmark} color="white" />
+          <FontAwesomeIcon
+            icon={isSaved ? solidBookmark : faBookmark}
+            color="white"
+          />
         </TouchableOpacity>
       </FooterStats>
     </Footer>

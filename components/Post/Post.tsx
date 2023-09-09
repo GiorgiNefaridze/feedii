@@ -18,7 +18,7 @@ const Post = ({
   content,
   comment,
   likes,
-  navigation,
+  navigationProp,
 }: IPost): JSX.Element => {
   const fullName = firstname + " " + lastname;
 
@@ -45,7 +45,7 @@ const Post = ({
         comments={comment}
         likes={likes}
         post_id={post_id}
-        navigation={navigation}
+        navigation={navigationProp}
       />
     </PostWrapper>
   );
