@@ -28,7 +28,7 @@ const Profile = ({ navigation }: INavigation): JSX.Element => {
     userData: { firstname, lastname },
   } = AuthContext();
 
-  const fullName = firstname + " " + lastname;
+  const fullName = (firstname + " " + lastname).toUpperCase();
 
   const handleNavigation = (path: string) => {
     navigation.navigate(path);
@@ -41,7 +41,7 @@ const Profile = ({ navigation }: INavigation): JSX.Element => {
           <Header
             color="white"
             size={2}
-            text={firstname?.slice(0, 1)}
+            text={firstname?.slice(0, 1).toUpperCase()}
             weight="400"
           />
         </Avatar>

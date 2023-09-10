@@ -95,7 +95,7 @@ const PostFooter = ({
 
       setIsSaved(isChecked);
     })();
-  }, [isSaved, userData?.id, post_id]);
+  }, [isSaved, userData?.id, post_id, isFocused]);
 
   const savePost = () => {
     const postData = { post_id, user_id: userData?.id };

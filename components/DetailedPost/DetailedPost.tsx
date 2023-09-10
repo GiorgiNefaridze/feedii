@@ -28,7 +28,6 @@ import Header from "../Header/Header";
 import Input from "../Input/Input";
 
 import { PostWrapper, PostFooter, CommentBox } from "./DetailedPost.style";
-import { Stats } from "../Post/Post.style";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -38,7 +37,6 @@ const DetailedPost = ({
 }: IProps): JSX.Element => {
   const [post, setPost] = useState<IPost>({} as IPost);
   const [comments, setComments] = useState<IComment[]>([]);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
   const { userData } = AuthContext();
@@ -115,12 +113,10 @@ const DetailedPost = ({
         <Comments comments={comments} />
       </PostWrapper>
       <PostFooter>
-        <Stats>
-          <FontAwesomeIcon
-            icon={post?.isLiked ? solidHeart : faHeart}
-            color="white"
-          />
-        </Stats>
+        <FontAwesomeIcon
+          icon={post?.isLiked ? solidHeart : faHeart}
+          color="white"
+        />
         <CommentBox width={screenWidth - 90}>
           <Input
             text="Write a comment"
