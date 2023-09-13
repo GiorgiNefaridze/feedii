@@ -1,7 +1,7 @@
 💻 **FEEDII** is a **cross-platform full-stack** mobile application, which gives users opportunities to share and see each-other's daily activities.
 
 <div style="display: flex;align-items:center; justify-content: center">
-    <img src="../assets/logo.png" style="width: 500px;height:200px; text-align: center" />
+    <img src="./assets/logo.png" style="width: 500px;height:200px; text-align: center" />
 </div>
 
 > In order to use application,you ought to set all the requirment up.
@@ -50,4 +50,4 @@ Change directory and start the back-end `cd server && npm start`. Then follow `.
 
 ### 🖼️ Snapshots
 
-<img src="../assets/thumbnail.png" style="width: 600px" />
+<img src="./assets/thumbnail.png" style="width: 600px" />
