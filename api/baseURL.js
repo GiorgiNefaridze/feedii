@@ -5,7 +5,7 @@ export const axiosInstance = async () => {
   const token = await AsyncStorage.getItem("token");
 
   return axios.create({
-    baseURL: "http://192.168.100.7:3600",
+    baseURL: "http://192.168.100.8:3600",
     headers: { Authorization: "Bearer " + token },
   });
 };

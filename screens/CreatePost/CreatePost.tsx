@@ -160,6 +160,7 @@ const CreatePost = ({ navigation }: IProps): JSX.Element => {
             width: screenWidth - 2 * paddingHorizontal,
             height: 200,
           }}
+          resizeMode="contain"
         />
       )}
     </Container>
